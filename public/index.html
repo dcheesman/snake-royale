@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Snake Controller</title>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
+  <script type="text/javascript">
+    var HOST = location.origin.replace(/^http/, 'ws') + "/controller";
+    var ws = new WebSocket(HOST);
+    var el;
+
+    ws.onmessage = function (event) {
+      el = document.getElementById('server-time');
+      el.innerHTML = 'Server time: ' + event.data;
+    };
+
+  </script>
+
+
+
+</head>
+<body>
+  <div id='server-time'></div>
+</body>
+</html>
