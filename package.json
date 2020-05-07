@@ -7,7 +7,7 @@
     "node": "13.1.x"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
