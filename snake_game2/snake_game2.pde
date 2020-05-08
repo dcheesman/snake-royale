@@ -94,8 +94,8 @@ void setup() {
   }
   winnerColor = color(255);
 
-  controllerURL = "https://" + appURL;
-  gameURL = "ws://" + appURL;
+  controllerURL = "https://" + appUrl;
+  gameURL = "ws://" + appUrl;
 
   connectSocket();
 
