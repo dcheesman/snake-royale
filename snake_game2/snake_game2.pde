@@ -1,6 +1,9 @@
 import websockets.*;
 import com.cage.zxing4p3.*;
 
+String appUrl = "battle-royale-snake.herokuapp.com";
+String controllerURL, gameURL;
+
 WebsocketClient wsc; // websocket client
 ZXING4P zxing4p;
 
@@ -91,11 +94,14 @@ void setup() {
   }
   winnerColor = color(255);
 
+  controllerURL = "https://" + appURL;
+  gameURL = "ws://" + appURL;
+
   connectSocket();
 
    // ZXING4P ENCODE/DECODER INSTANCE
   zxing4p = new ZXING4P();
-  newQRCode("https://battle-royale-snake.herokuapp.com/controller.html");
+  newQRCode(controllerURL + "/controller.html");
 }
 
 void draw() {
@@ -221,7 +227,7 @@ void reset(){
 }
 
 void connectSocket(){
-  wsc= new WebsocketClient(this, "ws://battle-royale-snake.herokuapp.com/game");
+  wsc= new WebsocketClient(this, gameURL + "/game");
 }
 
 void keyPressed() {
