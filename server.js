@@ -22,7 +22,7 @@ const server = express()
 const wss = new Server({ server });
 
 let connections = {};
-let game = {};
+let game;
 
 wss.on('connection', (ws, req) => {
   console.log('Client connected');
@@ -53,29 +53,31 @@ wss.on('connection', (ws, req) => {
 
   } else {
 
-    // give the client a unique ID
-    ws.id = uuidv4();
-    console.log(ws.id);
-    connections[ws.id]= ws;
+    if(game){
+      // give the client a unique ID
+      ws.id = uuidv4();
+      console.log(ws.id);
+      connections[ws.id]= ws;
 
-    // tell the game the client's
-    game.send("New Client," + ws.id);
+      // tell the game the client's
+      game.send("New Client," + ws.id);
 
-    // listen for messages
-    ws.on('message', message => {
-      // send all controller messages to the game
-      if(game){
-        game.send("Move" + "," + ws.id + "," + message);
-      }
+      // listen for messages
+      ws.on('message', message => {
+        // send all controller messages to the game
+        if(game){
+          game.send("Move" + "," + ws.id + "," + message);
+        }
 
-      console.log(`Received message from ${ws.id} => ${message}`)
-    })
+        console.log(`Received message from ${ws.id} => ${message}`)
+      })
 
-    ws.on('close', () => {
-      delete connections[ws.id];
-      game.send("Client disconnected" + "," + ws.id);
-      console.log('Client disconnected: ' + ws.id);
-    });
+      ws.on('close', () => {
+        delete connections[ws.id];
+        game.send("Client disconnected" + "," + ws.id);
+        console.log('Client disconnected: ' + ws.id);
+      });
+    }
   }
 
 });
