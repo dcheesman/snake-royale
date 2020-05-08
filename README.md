@@ -11,7 +11,7 @@ Your snake will grow longer if you eat food (green dots) or if another player ru
 Each round goes until there’s only one snake left! To keep rounds short there is a safe zone that shrinks periodically.
 
 
-How to use
+## How to use
 
 Create your own game server by uploading to Heroku.
 
