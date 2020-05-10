@@ -96,7 +96,7 @@ class Snake {
   void eat(Food[] food){
     for (Food f : food) {
       if(f.x == x && f.y == y){
-        grow(3);                // <--- food grow amount
+        grow(5);                // <--- food grow amount
         f.spawn();
       }
     }

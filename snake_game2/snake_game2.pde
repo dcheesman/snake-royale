@@ -1,6 +1,8 @@
 import websockets.*;
 import com.cage.zxing4p3.*;
 
+boolean fullscreenPlay = true;
+
 String appUrl = "battle-royale-snake.herokuapp.com";
 String controllerURL, gameURL;
 
@@ -23,7 +25,7 @@ int gameMode = LOBBY;
 float zoom = 4;
 // how long to wait for zoom in. and how long to zoom
 int roundFrames = 100;
-int foodCount = 10;
+int foodCount = 20;
 int snakeCount = 12;
 int nextColor = 0;
 
@@ -63,7 +65,9 @@ PGraphics game;
 PGraphics overlay;
 
 void setup() {
-  size(1280 , 720);
+  fullScreen();
+  // size(1280 , 720);
+
   noSmooth();
   background(0);
 
