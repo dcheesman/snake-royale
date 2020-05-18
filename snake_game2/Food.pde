@@ -2,7 +2,12 @@ class Food {
   int x;
   int y;
 
-  Food() {
+  int growth;
+  color c;
+
+  Food( int _growth, color _c) {
+    growth = _growth;
+    c = _c;
     spawn();
   }
 
@@ -22,7 +27,7 @@ class Food {
   }
 
   void show() {
-    game.fill(0, 255, 0);
+    game.fill(c);
     game.noStroke();
     game.rect(x, y, 1, 1);
   }

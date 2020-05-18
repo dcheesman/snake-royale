@@ -3,7 +3,7 @@ class SafeZone {
   static final int SHRINKING = 1;
   static final int WAITING = 2;
 
-  float shrinkPercent = 0.90;
+  float shrinkPercent = 0.75;
   int mode = WARNING;
   int roundCount;
 

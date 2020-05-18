@@ -25,7 +25,7 @@ int gameMode = LOBBY;
 float zoom = 4;
 // how long to wait for zoom in. and how long to zoom
 int roundFrames = 100;
-int foodCount = 20;
+int foodCount = 30;
 int snakeCount = 12;
 int nextColor = 0;
 
@@ -57,7 +57,7 @@ PImage  QRCode;
 // game objects
 // Snake[] snakes;
 ArrayList<Snake> snakes;
-Food[] food;
+Food[] food1, food2;
 SafeZone safeZone;
 
 // buffer to hold game
@@ -65,8 +65,8 @@ PGraphics game;
 PGraphics overlay;
 
 void setup() {
-  fullScreen();
-  // size(1280 , 720);
+  // fullScreen();
+  size(1280 , 720);
 
   noSmooth();
   background(0);
@@ -92,10 +92,17 @@ void setup() {
   safeZone = new SafeZone();
   snakes = new ArrayList<Snake>();
 
-  food = new Food[foodCount];
+  food1 = new Food[foodCount];
+  food2 = new Food[foodCount];
+
   for (int i = 0; i < foodCount; ++i) {
-    food[i] = new Food();
+    food1[i] = new Food(3, color(0, 255, 0));
   }
+
+  for (int i = 0; i < foodCount; ++i) {
+    food2[i] = new Food(8, color(0, 0, 255));
+  }
+
   winnerColor = color(255);
 
   controllerURL = "https://" + appUrl;
@@ -158,7 +165,12 @@ void draw() {
       safeZone.update();
       safeZone.show();
 
-      for (Food f : food) {
+      for (Food f : food1) {
+        f.update();
+        f.show();
+      }
+
+      for (Food f : food2) {
         f.update();
         f.show();
       }
@@ -169,7 +181,8 @@ void draw() {
         snake.update(i);
         if(snake.dead == false){
           liveSnakes++;
-          snake.eat(food);
+          snake.eat(food1);
+          snake.eat(food2);
           snake.show();
         }
       }
@@ -227,6 +240,14 @@ void reset(){
   for (int i = 0; i < snakes.size(); ++i) {
     Snake snake = snakes.get(i);
     snake.spawn();
+  }
+
+  for (int i = 0; i < foodCount; ++i) {
+    food1[i].spawn();
+  }
+
+  for (int i = 0; i < foodCount; ++i) {
+    food2[i].spawn();
   }
 }
 
