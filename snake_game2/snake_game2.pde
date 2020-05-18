@@ -25,7 +25,7 @@ int gameMode = LOBBY;
 float zoom = 4;
 // how long to wait for zoom in. and how long to zoom
 int roundFrames = 100;
-int foodCount = 30;
+int foodCount = 20;
 int snakeCount = 12;
 int nextColor = 0;
 
@@ -100,7 +100,7 @@ void setup() {
   }
 
   for (int i = 0; i < foodCount; ++i) {
-    food2[i] = new Food(8, color(0, 0, 255));
+    food2[i] = new Food(8, color(0, 255, 255));
   }
 
   winnerColor = color(255);

@@ -52,6 +52,7 @@ class Snake {
             if(part.x == x && part.y == y){
               snake.grow(body.size());
               die();
+              break;
             }
           }
         }
