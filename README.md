@@ -6,7 +6,7 @@ Players scan the on-screen QR code to join. The only options are turn left and t
 
 Your snake will die if it goes out of the safe zone (outlined in red), if it runs into itself, or runs into another player.
 
-Your snake will grow longer if you eat food (green dots) or if another player runs into your tail and dies.
+Your snake will grow longer if you eat food (green and blue dots) or if another player runs into your tail and dies.
 
 Each round goes until there’s only one snake left! To keep rounds short there is a safe zone that shrinks periodically.
 
@@ -15,9 +15,4 @@ Each round goes until there’s only one snake left! To keep rounds short there 
 
 Create your own game server by uploading to Heroku.
 
-To run the game you will need Processing. There are two libraries you will need. The websockets library which can be downloaded through Processing’s Sketch→ Import Library → Add Library menu. Additionally you’ll need the ZXing library. This needs be manually installed in your systems Processing/libraries folder. 
-
-If you upload your own version to Heroku you can update your app url in the snake_game2.pde file.
-`String appUrl = {your url here}`
-
-
+To run the game you will need Processing. There are two libraries you will need. The websockets library which can be downloaded through Processing’s Sketch→ Import Library → Add Library menu. Additionally you’ll need the [ZXing library](http://cagewebdev.com/zxing4processing-processing-library/). This needs be manually installed in your systems Processing/libraries folder. 
