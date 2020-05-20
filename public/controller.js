@@ -29,7 +29,9 @@ function setup() {
     }
   };
 
+  frameRate(10);
 }
+
 
 function draw() {
   background(0);
@@ -49,6 +51,7 @@ function draw() {
     }
   }
 }
+
 
 function mousePressed(){
   if(mouseX < width/2){

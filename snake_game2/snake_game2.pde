@@ -82,6 +82,7 @@ void setup() {
   h = floor(height/ zoom);
 
   gameID = floor(random(10000));
+  println("GameID: ", gameID);
 
   game = createGraphics(w, h);
   game.noSmooth();
