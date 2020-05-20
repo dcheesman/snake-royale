@@ -68,8 +68,8 @@ PGraphics game;
 PGraphics overlay;
 
 void setup() {
-  // fullScreen();
-  size(1280 , 720);
+  fullScreen();
+  // size(1280 , 720);
 
   noSmooth();
   background(0);
