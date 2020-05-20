@@ -4,15 +4,9 @@ const { v4: uuidv4 } = require('uuid');
 const express = require('express');
 const { Server } = require('ws');
 const path = require('path');
+const url = require('url');
 
 const PORT = process.env.PORT || 3000;
-const INDEX = '/index.html';
-
-// const server = express()
-//   .use((req, res) => {
-//     res.sendFile(INDEX, { root: __dirname });
-//   })
-//   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 const server = express()
   .use(express.static('public'))
@@ -22,19 +16,25 @@ const server = express()
 const wss = new Server({ server });
 
 let connections = {};
-let game;
+let games = {};
 
 wss.on('connection', (ws, req) => {
   console.log('Client connected');
 
-  var url = req.url;
-  console.log(`URL => ${url}`);
+  var url_str = req.url;
+  // console.log(`URL => ${url_str}`);
+  console.log(url_str);
+  
+  var reqURL = url.parse(url_str, true);
+  var gameid = reqURL.query.gameid;
+  console.log("gameid=" + gameid);
 
-  if(url == '/game'){
+  if(reqURL.pathname == '/game'){
 
-    ws.id = 'game';
+    ws.id = gameid;
+    ws.gameid = gameid;
     console.log('game connected');
-    game = ws;
+    games[gameid] = ws;
 
     ws.on('message', message => {
       console.log(`Received message from ${ws.id} => ${message}`);
@@ -53,20 +53,28 @@ wss.on('connection', (ws, req) => {
 
   } else {
 
-    if(game){
+    if(games){
       // give the client a unique ID
       ws.id = uuidv4();
+      ws.gameid = gameid;
       console.log(ws.id);
       connections[ws.id]= ws;
 
       // tell the game the client's
-      game.send("New Client," + ws.id);
+      if(ws.gameid > 0 && games[gameid]){
+        games[gameid].send("New Client," + ws.id);
+        console.log("Let game know there's a new client");
+      }
 
       // listen for messages
       ws.on('message', message => {
         // send all controller messages to the game
-        if(game){
-          game.send("Move" + "," + ws.id + "," + message);
+        if(message.split("=")[0] == "gameid"){
+          ws.gameid = message.split("=")[1];
+        }
+
+        if(ws.gameid > 0 && games[gameid]){
+          games[ws.gameid].send("Move" + "," + ws.id + "," + message);
         }
 
         console.log(`Received message from ${ws.id} => ${message}`)
@@ -74,7 +82,10 @@ wss.on('connection', (ws, req) => {
 
       ws.on('close', () => {
         delete connections[ws.id];
-        game.send("Client disconnected" + "," + ws.id);
+        if(ws.gameid > 0 && games[gameid]){
+          games[ws.gameid].send("Client disconnected" + "," + ws.id);
+        }
+        ws.gameid = 0;
         console.log('Client disconnected: ' + ws.id);
       });
     }

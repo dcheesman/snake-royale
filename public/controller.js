@@ -6,9 +6,17 @@ function setup() {
   // set my color here and maybe my ID?
   createCanvas(windowWidth, windowHeight);
 
-  var HOST = location.origin.replace(/^http/, 'ws')
+  let params = getURLParams();
+  console.log(params.gameid);
+
+  var HOST = location.href.replace(/^http/, 'ws')
   ws = new WebSocket(HOST);
   myColor = color(10, 10, 10);
+
+  ws.onopen = function (event) {
+    console.log('socket open');
+    ws.send("gameid="+params.gameid); 
+  };
 
   ws.onmessage = function(message) {
 

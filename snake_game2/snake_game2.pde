@@ -4,7 +4,10 @@ import com.cage.zxing4p3.*;
 boolean fullscreenPlay = true;
 
 String appUrl = "battle-royale-snake.herokuapp.com";
+// String appUrl = "localhost:3000";
 String controllerURL, gameURL;
+
+int gameID;
 
 WebsocketClient wsc; // websocket client
 ZXING4P zxing4p;
@@ -78,6 +81,8 @@ void setup() {
   w = floor(width / zoom);
   h = floor(height/ zoom);
 
+  gameID = floor(random(10000));
+
   game = createGraphics(w, h);
   game.noSmooth();
 
@@ -106,13 +111,13 @@ void setup() {
   winnerColor = color(255);
 
   controllerURL = "https://" + appUrl;
-  gameURL = "ws://" + appUrl;
+  gameURL = "ws://" + appUrl+ "/game?gameid=" + gameID;
 
   connectSocket();
 
    // ZXING4P ENCODE/DECODER INSTANCE
   zxing4p = new ZXING4P();
-  newQRCode(controllerURL + "/controller.html");
+  newQRCode(controllerURL + "/controller.html?gameid=" + gameID);
 }
 
 void draw() {
@@ -252,7 +257,7 @@ void reset(){
 }
 
 void connectSocket(){
-  wsc= new WebsocketClient(this, gameURL + "/game");
+  wsc= new WebsocketClient(this, gameURL);
 }
 
 void keyPressed() {
