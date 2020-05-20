@@ -1,3 +1,5 @@
+![Gameplay](https://github.com/dcheesman/snake-royale/blob/master/Gameplay.png "Gameplay")
+
 ## A multi-player shrinking-border battle-royale snake game
 
 This is a single-room multi-player game. This means everyone is looking at the same screen but using their phones as a controller.
