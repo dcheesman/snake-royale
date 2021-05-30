@@ -19,7 +19,7 @@
     "express": "^4.17.1",
     "utf-8-validate": "^5.0.2",
     "uuid": "^8.0.0",
-    "ws": "^7.2.5"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.3"
