@@ -16,7 +16,7 @@
   "dependencies": {
     "bufferutil": "^4.0.1",
     "core-js": "^2.5.7",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "utf-8-validate": "^5.0.2",
     "uuid": "^8.0.0",
     "ws": "^7.4.6"
